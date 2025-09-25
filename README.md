@@ -5,6 +5,20 @@ Strapi **v5 이상**을 사용할 경우, 반드시 **Node.js v22 이상**을 �
 그렇지 않으면 **파일 업로드 관련 오류**가 발생할 수 있습니다.
 
 
+
+# flutter devices  (연결 가능한 디바이스)
+
+
+# adb devices (ADB 연결 확인)
+
+
+# flutter_app
+
+taskkill /F /IM adb.exe
+
+# scrcpy  휴대폰 화면 pc
+
+
 ---
 
 ### 병합 처리
