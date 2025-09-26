@@ -6,17 +6,6 @@ Strapi **v5 이상**을 사용할 경우, 반드시 **Node.js v22 이상**을 �
 
 
 
-# flutter devices  (연결 가능한 디바이스)
-
-
-# adb devices (ADB 연결 확인)
-
-
-# flutter_app
-
-taskkill /F /IM adb.exe
-
-# scrcpy  휴대폰 화면 pc
 
 
 ---
