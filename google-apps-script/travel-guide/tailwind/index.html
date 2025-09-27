@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>스마트 여행 가이드 - 튜북</title>
+  <link rel="manifest" href="?r=manifest">
+  <meta name="theme-color" content="#6B46C1" />
+
+  <meta name="robots" content="index,follow">
+  <meta name="description" content="AI가 추천하는 맞춤형 여행 경로를 제공하는 튜북 스마트 여행 가이드 PWA 앱">
+  <meta name="keywords" content="여행, AI, PWA, 추천, 경로, 튜북, 맞춤형 여행">
+  <meta name="author" content="튜북">
+
+  <meta property="og:title" content="스마트 여행 가이드 - 튜북">
+  <meta property="og:description" content="AI가 추천하는 맞춤형 여행 경로를 제공하는 튜북 PWA 앱">
+  <meta property="og:image" content="https://cdn.jsdelivr.net/gh/blessedwinner/tubook-static@v1.0/assets/logo/og-image-1200x630-kr-white.svg">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="실제 앱 URL">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:locale" content="ko_KR">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="스마트 여행 가이드 - 튜북">
+  <meta name="twitter:description" content="AI가 추천하는 맞춤형 여행 경로 제공">
+  <meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/blessedwinner/tubook-static@v1.0/assets/logo/twitter-card-1500x500-en-white.svg">
+  <link rel="canonical" href="실제 앱 URL">
+
+  <link rel="icon" type="image/png" href="https://cdn.jsdelivr.net/gh/blessedwinner/tubook-static@v1.0/assets/logo/favicon-32x32.svg" sizes="favicon-32x32" />
+  <link rel="icon" type="image/svg+xml" href="https://cdn.jsdelivr.net/gh/blessedwinner/tubook-static@v1.0/assets/logo/favicon-48x48.svg" />
+  <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/blessedwinner/tubook-static@v1.0/assets/logo/favicon-66x64.svg" />
+  <link rel="apple-touch-icon" sizes="180x180" href="https://cdn.jsdelivr.net/gh/blessedwinner/tubook-static@v1.0/assets/logo/favicon-192x192.svg" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'kodam-primary': '#5B86E5',
+            'kodam-secondary': '#36D1DC'
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-kodam-primary via-kodam-secondary to-kodam-primary flex items-center justify-center p-4 sm:p-8">
+  <main class="w-full max-w-4xl backdrop-blur-2xl bg-white/40 shadow-2xl rounded-3xl px-6 sm:px-10 md:px-16 lg:px-20 py-8 sm:py-12 space-y-12 border border-white/30">
+
+    <!-- 헤더 -->
+    <header class="text-center space-y-4">
+      <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-gray-900">✈️  스마트 여행 가이드</h1>
+      <p class="text-gray-800 text-base sm:text-lg lg:text-xl">AI가 추천하는 맞춤형 여행 경로</p>
+    </header>
+
+    <!-- 입력 폼 -->
+    <section>
+      <form id="travelForm" class="space-y-8">
+        <div class="space-y-3">
+          <label class="block text-lg font-semibold text-gray-800">📍 여행지 입력</label>
+          <input id="destination" name="destination" type="text" required placeholder="예: 일본 도쿄, 프랑스 파리" class="w-full rounded-xl p-4 border border-gray-200 bg-white/70 focus:bg-white/90 focus:ring-4 focus:ring-kodam-primary focus:outline-none text-gray-800 text-lg shadow-inner" />
+        </div>
+
+        <fieldset class="space-y-3">
+          <legend class="text-lg font-semibold text-gray-800">👥 인원수 선택</legend>
+          <div class="flex flex-wrap gap-3" id="people-options"></div>
+        </fieldset>
+
+        <fieldset class="space-y-3">
+          <legend class="text-lg font-semibold text-gray-800">⚧ 성별 구성</legend>
+          <div class="flex flex-wrap gap-3" id="gender-options"></div>
+        </fieldset>
+
+        <div class="space-y-3">
+          <label class="text-lg font-semibold text-gray-800">🎂 나이대 선택</label>
+          <select id="age" required class="w-full rounded-xl p-4 border border-gray-200 bg-white/70 focus:bg-white/90 focus:ring-4 focus:ring-kodam-primary focus:outline-none text-gray-800 text-lg shadow-inner">
+            <option value="">나이대를 선택하세요</option>
+            <option>20대</option>
+            <option>30대</option>
+            <option>40대</option>
+            <option>50대 이상</option>
+            <option>혼합</option>
+          </select>
+        </div>
+
+        <fieldset class="space-y-3">
+          <legend class="text-lg font-semibold text-gray-800">🎯 여행 스타일 (복수 선택)</legend>
+          <div class="flex flex-wrap gap-3" id="style-options"></div>
+        </fieldset>
+
+        <div class="space-y-3">
+          <label class="text-lg font-semibold text-gray-800">📅 여행 일수</label>
+          <div class="flex items-center gap-5">
+            <input id="days" type="range" min="1" max="7" value="3" class="flex-1 accent-kodam-primary cursor-pointer" />
+            <div id="daysValue" class="text-lg font-bold text-kodam-primary">3일</div>
+          </div>
+        </div>
+
+        <fieldset class="space-y-3">
+          <legend class="text-lg font-semibold text-gray-800">💰 예산 규모 (1인 기준)</legend>
+          <div class="flex flex-wrap gap-3" id="budget-options"></div>
+        </fieldset>
+
+        <div class="pt-4">
+          <button id="submitBtn" type="submit" class="w-full bg-gradient-to-r from-kodam-primary to-kodam-secondary text-white text-xl font-bold rounded-xl py-4 shadow-xl hover:scale-105 hover:shadow-2xl transition cursor-pointer">
+            🎯 여행 경로 추천받기
+          </button>
+        </div>
+      </form>
+    </section>
+
+    <!-- 결과 영역 -->
+    <section id="uiArea" class="space-y-6">
+      <div id="errorMsg" class="hidden text-center text-red-600 bg-red-100/60 rounded-xl p-4"></div>
+      <div id="loading" class="hidden flex items-center justify-center gap-4">
+        <div class="w-10 h-10 border-4 border-gray-200 border-t-kodam-primary rounded-full animate-spin"></div>
+        <div class="text-gray-800 text-lg">AI가 여행 경로를 생성 중입니다...</div>
+      </div>
+      <div id="result" class="space-y-6"></div>
+    </section>
+
+    <footer class="text-center text-gray-700 text-sm pt-6 border-t border-white/40">        
+      © 2025 튜북. Powered by Tubook
+    </footer>
+  </main>
+
+
+
+  <script>
+const PEOPLE = ["1명","2명","3-4명","5명 이상"];
+const GENDER = ["남성만","여성만","혼성"];
+const STYLE  = ["솔로여행","휴양여행","가족여행","커플여행","비즈니스"];
+const BUDGET = ["100만원 이하","100-200만원","200만원 이상"];
+
+function createOptions(containerId, name, list, type="radio") {
+  const container = document.getElementById(containerId);
+  list.forEach(v => {
+    const label = document.createElement('label');
+    label.className = "inline-flex items-center";
+
+    // ✅ required는 radio일 때만
+    const required = (type === "radio") ? "required" : "";
+
+    label.innerHTML = `
+      <input type="${type}" name="${name}" value="${v}" class="peer sr-only" ${required} />
+      <span class="px-4 py-2 rounded-xl border border-gray-300 bg-white/60 backdrop-blur-md peer-checked:bg-gradient-to-r peer-checked:from-kodam-primary peer-checked:to-kodam-secondary peer-checked:text-white text-gray-800 shadow-sm hover:shadow-md cursor-pointer transition">${v}</span>`;
+    container.appendChild(label);
+  });
+}
+createOptions('people-options','people',PEOPLE);
+createOptions('gender-options','gender',GENDER);
+createOptions('style-options','travelStyle',STYLE,'checkbox');
+createOptions('budget-options','budget',BUDGET);
+
+const FORM = document.getElementById('travelForm');
+const DAYS = document.getElementById('days');
+const DAYSVAL = document.getElementById('daysValue');
+const LOADING = document.getElementById('loading');
+const ERROR = document.getElementById('errorMsg');
+const RESULT = document.getElementById('result');
+const SUBMIT_BTN = document.getElementById('submitBtn');
+
+DAYS.addEventListener('input', () => { DAYSVAL.textContent = DAYS.value + '일'; });
+
+FORM.addEventListener('submit', (ev) => {
+  ev.preventDefault();
+  clearError();
+  showLoading();
+
+  const destination = document.getElementById('destination').value.trim();
+  const people = (document.querySelector('input[name="people"]:checked') || {}).value || '';
+  const gender = (document.querySelector('input[name="gender"]:checked') || {}).value || '';
+  const age = document.getElementById('age').value || '';
+  const travelStyle = Array.from(document.querySelectorAll('input[name="travelStyle"]:checked')).map(n => n.value);
+  const days = document.getElementById('days').value;
+  const budget = (document.querySelector('input[name="budget"]:checked') || {}).value || '';
+
+  if (!destination || !people || !gender || !age || !budget || travelStyle.length === 0) {
+    showError('필수 항목을 모두 입력/선택해주세요.');
+    hideLoading();
+    return;
+  }
+
+  const payload = { destination, people, gender, age, travelStyle, days, budget };
+
+  try {
+    google.script.run
+      .withSuccessHandler((res) => {
+        if (res && res.success) {
+          displayResult(res.data);
+        } else {
+          showError(res.error || 'AI 응답 실패');
+        }
+        hideLoading();
+      })
+      .withFailureHandler((err) => {
+        showError('오류 발생: ' + (err ? err.toString() : 'Unknown'));
+        hideLoading();
+      })
+      .processTravel(payload);
+
+  } catch (err) {
+    showError('오류 발생: ' + err.toString());
+    hideLoading();
+  }
+});
+
+// ✅ Markdown-like parser
+function parseMarkdown(text) {
+  let html = text;
+  html = html.replace(/^## (.*)$/gm, '<h2 class="text-2xl font-bold text-gray-900 mb-2">$1</h2>');
+  html = html.replace(/^### (.*)$/gm, '<h3 class="text-xl font-semibold text-gray-800 mb-1">$1</h3>');
+  html = html.replace(/^- (.*)$/gm, '<li class="ml-6 list-disc">$1</li>');
+  html = html.replace(/^\* (.*)$/gm, '<li class="ml-6 list-disc">$1</li>');
+  html = html.replace(/\n{2,}/g, '</p><p>');
+  html = '<p>' + html + '</p>';
+  html = html.replace(/<p>(\s*<li.*<\/li>)<\/p>/g, '<ul>$1</ul>');
+  return html;
+}
+
+function displayResult(data) {
+  RESULT.innerHTML = '';
+  if (!data) {
+    RESULT.innerHTML = '<div class="text-sm text-gray-600">응답이 없습니다.</div>';
+    return;
+  }
+  const card = document.createElement('div');
+  card.className = 'bg-white/90 p-6 rounded-lg shadow space-y-2 text-gray-800 leading-relaxed';
+  card.innerHTML = parseMarkdown(data);
+  RESULT.appendChild(card);
+}
+
+function showLoading() { LOADING.classList.remove('hidden'); SUBMIT_BTN.disabled = true; }
+function hideLoading() { LOADING.classList.add('hidden'); SUBMIT_BTN.disabled = false; }
+function showError(msg) { ERROR.textContent = '⚠️ ' + msg; ERROR.classList.remove('hidden'); }
+function clearError() { ERROR.textContent=''; ERROR.classList.add('hidden'); }
+</script>
+
+</body>
+</html>
