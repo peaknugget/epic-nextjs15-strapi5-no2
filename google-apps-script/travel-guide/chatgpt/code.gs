@@ -6,7 +6,7 @@
 // --------------------------
 // 설정 (사용자 환경에 맞게 변경 가능)
 // --------------------------
-const API_KEY = 'AIzaSyCBzVtrwfiKEgLol8hVbGiHtOttDx5FwBc'; // <-- 제공하신 키 (보안 유의)
+const API_KEY = ''; // <-- 제공하신 키 (보안 유의)
 const GEMINI_MODEL = 'gemini-1.5-flash'; // 모델 이름
 const SHEET_ID = '1PbJHO6fTZAgOopsczQXs5PyY4yt_UAFu6Xb3UUViDPg';
 const SHEET_NAME = '출력결과';
