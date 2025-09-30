@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>스마트 여행 가이드 - 튜북</title>
+  <link rel="manifest" href="?r=manifest">
+  <meta name="theme-color" content="#6B46C1" />
+
+  <meta name="robots" content="index,follow">
+  <meta name="description" content="AI가 추천하는 맞춤형 여행 경로를 제공하는 튜북 스마트 여행 가이드 PWA 앱">
+  <meta name="keywords" content="여행, AI, PWA, 추천, 경로, 튜북, 맞춤형 여행">
+  <meta name="author" content="튜북">
+
+  <meta property="og:title" content="스마트 여행 가이드 - 튜북">
+  <meta property="og:description" content="AI가 추천하는 맞춤형 여행 경로를 제공하는 튜북 PWA 앱">
+  <meta property="og:image" content="https://cdn.jsdelivr.net/gh/blessedwinner/tubook-static@v1.0/assets/logo/og-image-1200x630-kr-white.svg">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="실제 앱 URL">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:locale" content="ko_KR">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="스마트 여행 가이드 - 튜북">
+  <meta name="twitter:description" content="AI가 추천하는 맞춤형 여행 경로 제공">
+  <meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/blessedwinner/tubook-static@v1.0/assets/logo/twitter-card-1500x500-en-white.svg">
+  <link rel="canonical" href="실제 앱 URL">
+
+  <link rel="icon" type="image/png" href="https://cdn.jsdelivr.net/gh/blessedwinner/tubook-static@v1.0/assets/logo/favicon-32x32.svg" sizes="favicon-32x32" />
+  <link rel="icon" type="image/svg+xml" href="https://cdn.jsdelivr.net/gh/blessedwinner/tubook-static@v1.0/assets/logo/favicon-48x48.svg" />
+  <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/blessedwinner/tubook-static@v1.0/assets/logo/favicon-66x64.svg" />
+  <link rel="apple-touch-icon" sizes="180x180" href="https://cdn.jsdelivr.net/gh/blessedwinner/tubook-static@v1.0/assets/logo/favicon-192x192.svg" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'kodam-primary': '#5B86E5',
+            'kodam-secondary': '#36D1DC'
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-kodam-primary via-kodam-secondary to-kodam-primary flex items-center justify-center p-4 sm:p-8">
+  <main class="w-full max-w-4xl backdrop-blur-2xl bg-white/40 shadow-2xl rounded-3xl px-6 sm:px-10 md:px-16 lg:px-20 py-8 sm:py-12 space-y-12 border border-white/30">
+
+    <!-- 헤더 -->
+    <header class="text-center space-y-4">
+      <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-gray-900">✈️  스마트 여행 가이드</h1>
+      <p class="text-gray-800 text-base sm:text-lg lg:text-xl">AI가 추천하는 맞춤형 여행 경로</p>
+    </header>
+
+    <!-- 입력 폼 -->
+    <section>
+      <form id="travelForm" class="space-y-8">
+        <div class="space-y-3">
+          <label class="block text-lg font-semibold text-gray-800">📍 여행지 입력</label>
+          <input id="destination" name="destination" type="text" required placeholder="예: 일본 도쿄, 프랑스 파리" class="w-full rounded-xl p-4 border border-gray-200 bg-white/70 focus:bg-white/90 focus:ring-4 focus:ring-kodam-primary focus:outline-none text-gray-800 text-lg shadow-inner" />
+        </div>
+
+        <fieldset class="space-y-3">
+          <legend class="text-lg font-semibold text-gray-800">👥 인원수 선택</legend>
+          <div class="flex flex-wrap gap-3" id="people-options"></div>
+        </fieldset>
+
+        <fieldset class="space-y-3">
+          <legend class="text-lg font-semibold text-gray-800">⚧ 성별 구성</legend>
+          <div class="flex flex-wrap gap-3" id="gender-options"></div>
+        </fieldset>
+
+        <div class="space-y-3">
+          <label class="text-lg font-semibold text-gray-800">🎂 나이대 선택</label>
+          <select id="age" required class="w-full rounded-xl p-4 border border-gray-200 bg-white/70 focus:bg-white/90 focus:ring-4 focus:ring-kodam-primary focus:outline-none text-gray-800 text-lg shadow-inner">
+            <option value="">나이대를 선택하세요</option>
+            <option>20대</option>
+            <option>30대</option>
+            <option>40대</option>
+            <option>50대</option>
+            <option>60대</option>
+            <option>70대</option>
+            <option>80대 이상</option>
+            <option>혼합</option>
+          </select>
+        </div>
+
+        <fieldset class="space-y-3">
+          <legend class="text-lg font-semibold text-gray-800">🎯 여행 스타일 (복수 선택)</legend>
+          <div class="flex flex-wrap gap-3" id="style-options"></div>
+        </fieldset>
+
+        <div class="space-y-3">
+          <label class="text-lg font-semibold text-gray-800">📅 여행 일수</label>
+          <div class="flex items-center gap-5">
+            <input id="days" type="range" min="1" max="30" value="3" class="flex-1 accent-kodam-primary cursor-pointer" />
+            <div id="daysValue" class="text-lg font-bold text-kodam-primary">3일</div>
+          </div>
+        </div>
+
+        <fieldset class="space-y-3">
+          <legend class="text-lg font-semibold text-gray-800">💰 예산 규모 (1인 기준)</legend>
+          <div class="flex flex-wrap gap-3" id="budget-options"></div>
+        </fieldset>
+
+        <div class="pt-4">
+          <button id="submitBtn" type="submit" class="w-full bg-gradient-to-r from-kodam-primary to-kodam-secondary text-white text-xl font-bold rounded-xl py-4 shadow-xl hover:scale-105 hover:shadow-2xl transition cursor-pointer">
+            🎯 여행 경로 추천받기
+          </button>
+        </div>
+      </form>
+    </section>
+
+    <!-- 결과 영역 -->
+    <section id="uiArea" class="space-y-6">
+      <div id="errorMsg" class="hidden text-center text-red-600 bg-red-100/60 rounded-xl p-4"></div>
+      <div id="loading" class="hidden flex items-center justify-center gap-4">
+        <div class="w-10 h-10 border-4 border-gray-200 border-t-kodam-primary rounded-full animate-spin"></div>
+        <div class="text-gray-800 text-lg">AI가 여행 경로를 생성 중입니다...</div>
+      </div>
+      <div id="result" class="space-y-6"></div>
+      
+      <!-- PDF 다운로드 버튼 -->
+      <div id="downloadButtons" class="hidden flex justify-center pt-4">
+        <button id="downloadPdfBtn" class="px-8 py-4 bg-gradient-to-r from-red-500 to-red-600 text-white text-lg font-bold rounded-xl shadow-xl hover:scale-105 hover:shadow-2xl transition">
+          📑 PDF 다운로드
+        </button>
+      </div>
+    </section>
+
+    <footer class="text-center text-gray-700 text-sm pt-6 border-t border-white/40">        
+      © 2025 튜북. Powered by Tubook 111
+    </footer>
+  </main>
+
+  <script>
+const PEOPLE = ["1명","2명","3-4명","5명 이상"];
+const GENDER = ["남성만","여성만","혼성"];
+const STYLE  = ["솔로여행","휴양여행","가족여행","커플여행","비즈니스"];
+const BUDGET = ["100만원 이하","100-200만원","200만원 이상"];
+
+let currentResponseData = null;
+let currentPayload = null;
+
+function createOptions(containerId, name, list, type="radio") {
+  const container = document.getElementById(containerId);
+  list.forEach(v => {
+    const label = document.createElement('label');
+    label.className = "inline-flex items-center";
+    const required = (type === "radio") ? "required" : "";
+    label.innerHTML = `
+      <input type="${type}" name="${name}" value="${v}" class="peer sr-only" ${required} />
+      <span class="px-4 py-2 rounded-xl border border-gray-300 bg-white/60 backdrop-blur-md peer-checked:bg-gradient-to-r peer-checked:from-kodam-primary peer-checked:to-kodam-secondary peer-checked:text-white text-gray-800 shadow-sm hover:shadow-md cursor-pointer transition">${v}</span>`;
+    container.appendChild(label);
+  });
+}
+createOptions('people-options','people',PEOPLE);
+createOptions('gender-options','gender',GENDER);
+createOptions('style-options','travelStyle',STYLE,'checkbox');
+createOptions('budget-options','budget',BUDGET);
+
+const FORM = document.getElementById('travelForm');
+const DAYS = document.getElementById('days');
+const DAYSVAL = document.getElementById('daysValue');
+const LOADING = document.getElementById('loading');
+const ERROR = document.getElementById('errorMsg');
+const RESULT = document.getElementById('result');
+const SUBMIT_BTN = document.getElementById('submitBtn');
+const DOWNLOAD_BUTTONS = document.getElementById('downloadButtons');
+const DOWNLOAD_PDF_BTN = document.getElementById('downloadPdfBtn');
+
+DAYS.addEventListener('input', () => { DAYSVAL.textContent = DAYS.value + '일'; });
+
+FORM.addEventListener('submit', (ev) => {
+  ev.preventDefault();
+  clearError();
+  showLoading();
+  hideDownloadButtons();
+
+  const destination = document.getElementById('destination').value.trim();
+  const people = (document.querySelector('input[name="people"]:checked') || {}).value || '';
+  const gender = (document.querySelector('input[name="gender"]:checked') || {}).value || '';
+  const age = document.getElementById('age').value || '';
+  const travelStyle = Array.from(document.querySelectorAll('input[name="travelStyle"]:checked')).map(n => n.value);
+  const days = document.getElementById('days').value;
+  const budget = (document.querySelector('input[name="budget"]:checked') || {}).value || '';
+
+  if (!destination || !people || !gender || !age || !budget || travelStyle.length === 0) {
+    showError('필수 항목을 모두 입력/선택해주세요.');
+    hideLoading();
+    return;
+  }
+
+  const payload = { destination, people, gender, age, travelStyle, days, budget };
+  currentPayload = payload;
+
+//   try {
+//     google.script.run
+//       .withSuccessHandler((res) => {
+//         if (res && res.success) {
+//           currentResponseData = res.data;
+          
+//           if (res.htmlData && String(res.htmlData).trim()) {
+//             displayHtml(res.htmlData);
+//           } else if (res.data && String(res.data).trim()) {
+//             displayResult(res.data);
+//           } else {
+//             showError('AI 응답이 비어있습니다.');
+//           }
+          
+//           showDownloadButtons();
+//         } else {
+//           showError(res && res.error ? res.error : 'AI 응답 실패');
+//         }
+//         hideLoading();
+//       })
+//       .withFailureHandler((err) => {
+//         showError('오류 발생: ' + (err ? err.toString() : 'Unknown'));
+//         hideLoading();
+//       })
+//       .processTravel(payload);
+      
+
+//   } catch (err) {
+//     showError('오류 발생: ' + err.toString());
+//     hideLoading();
+//   }
+
+
+// Web App 배포 URL (필수: Anyone/익명 허용)
+const GAS_API_URL = "https://script.google.com/macros/library/d/1X9Pe-oI8ZaHE53uyBI-4HlLY5c1u8hbar_eFIjRx7ghDKTlD6O9eXJue/20";
+
+
+async function callProcessTravel(payload) {
+  showLoading();
+  try {
+    const response = await fetch(GAS_API_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ action: "processTravel", payload }) // 서버에서 action으로 구분
+    });
+
+    console.log(" response : ", response);
+    if (!response.ok) throw new Error("서버 응답 실패");
+
+    const res = await response.json();
+
+    if (res && res.success) {
+      currentResponseData = res.data;
+
+      if (res.htmlData && String(res.htmlData).trim()) {
+        displayHtml(res.htmlData);
+      } else if (res.data && String(res.data).trim()) {
+        displayResult(res.data);
+      } else {
+        showError("AI 응답이 비어있습니다.");
+      }
+
+      showDownloadButtons();
+    } else {
+      showError(res && res.error ? res.error : "AI 응답 실패");
+    }
+  } catch (err) {
+    showError("오류 발생: " + err.message);
+  } finally {
+    hideLoading();
+  }
+}
+
+
+
+});
+
+
+
+
+
+
+// PDF 다운로드
+DOWNLOAD_PDF_BTN.addEventListener('click', async () => {
+  if (!currentResponseData || !currentPayload) {
+    showError('다운로드할 데이터가 없습니다.');
+    return;
+  }
+
+  try {
+    DOWNLOAD_PDF_BTN.disabled = true;
+    DOWNLOAD_PDF_BTN.textContent = '📑 PDF 생성 중...';
+
+    // 서버에 PDF 생성 요청
+    const pdfPayload = {
+      responseData: currentResponseData,
+      destination: currentPayload.destination,
+      days: currentPayload.days,
+      people: currentPayload.people,
+      budget: currentPayload.budget
+    };
+
+    google.script.run
+      .withSuccessHandler((result) => {
+        if (result && result.success) {
+          // PDF 다운로드
+          const link = document.createElement('a');
+          link.href = result.downloadUrl;
+          link.download = result.fileName;
+          link.target = '_blank';
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+
+          // 다운로드 시작 후 3초 뒤 서버에서 파일 삭제
+          setTimeout(() => {
+            google.script.run
+              .withSuccessHandler(() => {
+                console.log('임시 PDF 파일이 삭제되었습니다.');
+              })
+              .withFailureHandler((err) => {
+                console.error('파일 삭제 실패:', err);
+              })
+              .deletePdfFromDrive(result.fileId);
+          }, 3000);
+
+          DOWNLOAD_PDF_BTN.textContent = '📑 PDF 다운로드';
+          DOWNLOAD_PDF_BTN.disabled = false;
+        } else {
+          showError('PDF 생성 실패: ' + (result.error || '알 수 없는 오류'));
+          DOWNLOAD_PDF_BTN.textContent = '📑 PDF 다운로드';
+          DOWNLOAD_PDF_BTN.disabled = false;
+        }
+      })
+      .withFailureHandler((err) => {
+        showError('PDF 생성 중 오류 발생: ' + err.toString());
+        DOWNLOAD_PDF_BTN.textContent = '📑 PDF 다운로드';
+        DOWNLOAD_PDF_BTN.disabled = false;
+      })
+      .generatePdfForDownload(pdfPayload);
+
+  } catch (err) {
+    console.error('PDF 다운로드 오류:', err);
+    showError('PDF 다운로드 중 오류가 발생했습니다: ' + err.toString());
+    DOWNLOAD_PDF_BTN.textContent = '📑 PDF 다운로드';
+    DOWNLOAD_PDF_BTN.disabled = false;
+  }
+});
+
+
+
+
+function displayResult(data) {
+  RESULT.innerHTML = '';
+  if (!data) {
+    RESULT.innerHTML = '<div class="text-sm text-gray-600">응답이 없습니다.</div>';
+    return;
+  }
+  const card = document.createElement('div');
+  card.className = 'bg-white/90 p-6 rounded-lg shadow space-y-2 text-gray-800 leading-relaxed';
+  card.innerHTML = parseMarkdown(data);
+  RESULT.appendChild(card);
+}
+
+function showLoading() { LOADING.classList.remove('hidden'); SUBMIT_BTN.disabled = true; }
+function hideLoading() { LOADING.classList.add('hidden'); SUBMIT_BTN.disabled = false; }
+function showError(msg) { ERROR.textContent = '⚠️ ' + msg; ERROR.classList.remove('hidden'); }
+function clearError() { ERROR.textContent=''; ERROR.classList.add('hidden'); }
+
+function displayHtml(html) {
+  RESULT.innerHTML = '';
+  const safeHtml = String(html).replace(/<script[\s\S]*?>[\s\S]*?<\/script>/gi, '');
+  const card = document.createElement('div');
+  card.className = 'bg-white/90 p-6 rounded-lg shadow space-y-2 text-gray-800 leading-relaxed';
+  card.innerHTML = safeHtml;
+  RESULT.appendChild(card);
+}
+
+function showDownloadButtons() {
+  DOWNLOAD_BUTTONS.classList.remove('hidden');
+}
+
+function hideDownloadButtons() {
+  DOWNLOAD_BUTTONS.classList.add('hidden');
+}
+
+function parseMarkdown(text) {
+  let html = text;
+  html = html.replace(/^## (.*)$/gm, '<h2 class="text-2xl font-bold text-gray-900 mb-2">$1</h2>');
+  html = html.replace(/^### (.*)$/gm, '<h3 class="text-xl font-semibold text-gray-800 mb-1">$1</h3>');
+  html = html.replace(/^- (.*)$/gm, '<li class="ml-6 list-disc">$1</li>');
+  html = html.replace(/^\* (.*)$/gm, '<li class="ml-6 list-disc">$1</li>');
+  html = html.replace(/\n{2,}/g, '</p><p>');
+  html = '<p>' + html + '</p>';
+  html = html.replace(/<p>(\s*<li.*<\/li>)<\/p>/g, '<ul>$1</ul>');
+  return html;
+}
+</script>
+
+</body>
+</html>

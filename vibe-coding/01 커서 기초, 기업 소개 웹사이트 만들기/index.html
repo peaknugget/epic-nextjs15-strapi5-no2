@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Macaronics 과일 — One Page</title>
+  <meta name="description" content="신선한 과일을 판매하는 Macaronics 원페이지 사이트 (TailwindCSS)" />
+
+  <!-- Tailwind Play CDN (빠른 프로토타입용) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#f97316', // 오렌지 계열 (과일 느낌)
+            accent: '#facc15'
+          }
+        }
+      }
+    }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <style>
+    html, body { font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; }
+  </style>
+</head>
+<body class="bg-white text-slate-800 antialiased">
+  <!-- NAV -->
+  <header class="sticky top-0 z-40 bg-white/75 backdrop-blur-sm border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="flex items-center justify-between h-16">
+        <a href="#hero" class="flex items-center gap-3">
+          <div class="w-10 h-10 bg-primary rounded-md flex items-center justify-center text-white font-bold">M</div>
+          <span class="font-semibold">Macaronics Fruits</span>
+        </a>
+
+        <nav class="hidden md:flex items-center gap-6 text-sm font-medium">
+          <a href="#about" class="hover:text-primary">회사소개</a>
+          <a href="#services" class="hover:text-primary">과일상품</a>
+          <a href="#team" class="hover:text-primary">팀</a>
+          <a href="#contact" class="hover:text-primary">문의</a>
+        </nav>
+
+        <div class="md:hidden">
+          <button id="navToggle" aria-label="메뉴 열기" class="p-2 rounded-md border border-slate-200">
+            <svg id="iconOpen" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+            <svg id="iconClose" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile menu -->
+    <div id="mobileMenu" class="md:hidden hidden border-t border-slate-100">
+      <div class="px-6 py-4 flex flex-col gap-3">
+        <a href="#about" class="py-2">회사소개</a>
+        <a href="#services" class="py-2">과일상품</a>
+        <a href="#team" class="py-2">팀</a>
+        <a href="#contact" class="py-2">문의</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section id="hero" class="pt-12 pb-20">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+        <div>
+          <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight">신선한 과일로 건강한 하루를</h1>
+          <p class="mt-4 text-slate-600 max-w-xl">Macaronics는 제철 과일을 산지 직송으로 제공하여, 가장 맛있고 건강한 과일을 고객님께 전해드립니다.</p>
+
+          <div class="mt-6 flex flex-wrap gap-3">
+            <a href="#contact" class="inline-flex items-center px-5 py-3 bg-primary text-white rounded-md shadow hover:opacity-95">주문 문의하기</a>
+            <a href="#services" class="inline-flex items-center px-5 py-3 border border-slate-200 rounded-md">과일상품 살펴보기</a>
+          </div>
+
+          <div class="mt-6 text-xs text-slate-500">사과 · 배 · 포도 · 딸기 · 귤 등 다양한 제철 과일</div>
+        </div>
+
+        <div class="order-first md:order-last">
+          <div class="w-full h-64 md:h-80 lg:h-96 rounded-2xl bg-gradient-to-br from-slate-100 to-slate-50 border border-slate-200 flex items-center justify-center">
+            <img src="https://i.namu.wiki/i/mQPg3DALAfK8i3NPg4m3uzJeqFJ63x7KQtlRndsdNCfBReBPB8fE7J6gybS_vt7Qg9SxA31UhgqTN1SBLjfBzQ.webp" 
+              alt="과일 이미지" class="object-cover w-full h-full rounded-2xl" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="py-14 bg-slate-50">
+    <div class="max-w-5xl mx-auto px-6 text-center">
+      <h2 class="text-2xl font-bold">Macaronics 소개</h2>
+      <p class="mt-4 text-slate-600">Macaronics는 농장에서 바로 배송되는 신선한 과일을 판매하는 기업입니다. 최고의 품질과 합리적인 가격으로 고객의 건강을 책임집니다.</p>
+
+      <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="p-6 bg-white rounded-xl border border-slate-100">
+          <h3 class="font-semibold">비전</h3>
+          <p class="mt-2 text-sm text-slate-600">신선한 과일로 더 건강한 라이프스타일을 제공합니다.</p>
+        </div>
+        <div class="p-6 bg-white rounded-xl border border-slate-100">
+          <h3 class="font-semibold">미션</h3>
+          <p class="mt-2 text-sm text-slate-600">산지 직송 과일을 통해 고객에게 최고의 신뢰와 만족을 전달합니다.</p>
+        </div>
+        <div class="p-6 bg-white rounded-xl border border-slate-100">
+          <h3 class="font-semibold">가치</h3>
+          <p class="mt-2 text-sm text-slate-600">신선함 · 품질 · 고객 중심</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services" class="py-14">
+    <div class="max-w-7xl mx-auto px-6">
+      <h2 class="text-2xl font-bold text-center">과일상품</h2>
+      <p class="text-center mt-2 text-slate-600">제철에 가장 맛있는 과일을 엄선하여 제공합니다.</p>
+
+      <div class="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <article class="p-6 bg-white rounded-xl border border-slate-100">
+          <h3 class="font-semibold">사과</h3>
+          <p class="mt-2 text-sm text-slate-600">아삭하고 달콤한 국내산 사과</p>
+        </article>
+
+        <article class="p-6 bg-white rounded-xl border border-slate-100">
+          <h3 class="font-semibold">포도</h3>
+          <p class="mt-2 text-sm text-slate-600">달콤한 거봉, 샤인머스캣</p>
+        </article>
+
+        <article class="p-6 bg-white rounded-xl border border-slate-100">
+          <h3 class="font-semibold">딸기</h3>
+          <p class="mt-2 text-sm text-slate-600">신선하고 향긋한 제철 딸기</p>
+        </article>
+
+        <article class="p-6 bg-white rounded-xl border border-slate-100">
+          <h3 class="font-semibold">귤</h3>
+          <p class="mt-2 text-sm text-slate-600">겨울철 대표 과일, 달콤한 귤</p>
+        </article>
+
+        <article class="p-6 bg-white rounded-xl border border-slate-100">
+          <h3 class="font-semibold">배</h3>
+          <p class="mt-2 text-sm text-slate-600">아삭하고 시원한 한국 배</p>
+        </article>
+
+        <article class="p-6 bg-white rounded-xl border border-slate-100">
+          <h3 class="font-semibold">기타 과일</h3>
+          <p class="mt-2 text-sm text-slate-600">제철에 맞는 다양한 과일 제공</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEAM -->
+  <section id="team" class="py-14 bg-slate-50">
+    <div class="max-w-5xl mx-auto px-6 text-center">
+      <h2 class="text-2xl font-bold">팀</h2>
+      <p class="mt-2 text-slate-600">신선한 과일을 책임지는 전문가들</p>
+
+      <div class="mt-8 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
+        <div class="bg-white p-4 rounded-xl border border-slate-100 text-center">
+          <div class="w-20 h-20 mx-auto rounded-full bg-slate-200 flex items-center justify-center">CEO</div>
+          <h4 class="mt-3 font-semibold">홍길동</h4>
+          <div class="text-sm text-slate-500">대표</div>
+        </div>
+        <div class="bg-white p-4 rounded-xl border border-slate-100 text-center">
+          <div class="w-20 h-20 mx-auto rounded-full bg-slate-200 flex items-center justify-center">MD</div>
+          <h4 class="mt-3 font-semibold">이영희</h4>
+          <div class="text-sm text-slate-500">상품기획</div>
+        </div>
+        <div class="bg-white p-4 rounded-xl border border-slate-100 text-center">
+          <div class="w-20 h-20 mx-auto rounded-full bg-slate-200 flex items-center justify-center">QC</div>
+          <h4 class="mt-3 font-semibold">김철수</h4>
+          <div class="text-sm text-slate-500">품질관리</div>
+        </div>
+        <div class="bg-white p-4 rounded-xl border border-slate-100 text-center">
+          <div class="w-20 h-20 mx-auto rounded-full bg-slate-200 flex items-center justify-center">MK</div>
+          <h4 class="mt-3 font-semibold">박민지</h4>
+          <div class="text-sm text-slate-500">마케팅</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="py-14">
+    <div class="max-w-4xl mx-auto px-6">
+      <h2 class="text-2xl font-bold text-center">문의하기</h2>
+      <p class="text-center mt-2 text-slate-600">과일 주문 및 상담은 아래로 연락주세요.</p>
+
+      <div class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
+        <form class="space-y-4 bg-white p-6 rounded-xl border border-slate-100">
+          <div>
+            <label class="text-sm font-medium">이름</label>
+            <input type="text" class="mt-2 w-full rounded-md border border-slate-200 px-3 py-2" placeholder="이름을 입력하세요" />
+          </div>
+          <div>
+            <label class="text-sm font-medium">이메일</label>
+            <input type="email" class="mt-2 w-full rounded-md border border-slate-200 px-3 py-2" placeholder="example@macaronics.com" />
+          </div>
+          <div class="md:col-span-2">
+            <label class="text-sm font-medium">메시지</label>
+            <textarea class="mt-2 w-full rounded-md border border-slate-200 px-3 py-2" rows="5" placeholder="과일 주문 또는 문의 내용을 적어주세요"></textarea>
+          </div>
+          <div>
+            <button type="submit" class="inline-flex items-center px-4 py-2 bg-primary text-white rounded-md">보내기</button>
+          </div>
+        </form>
+
+        <div class="p-6 rounded-xl border border-slate-100 bg-white">
+          <h3 class="font-semibold">연락처</h3>
+          <p class="mt-2 text-sm text-slate-600">이메일: hello@macaronics.com</p>
+          <p class="text-sm text-slate-600">전화: +82 10-1234-5678</p>
+
+          <div class="mt-4">
+            <h4 class="font-semibold text-sm">사무실</h4>
+            <p class="text-sm text-slate-600">서울특별시 강남구 테헤란로 *</p>
+          </div>
+
+          <div class="mt-6">
+            <h4 class="font-semibold text-sm">영업시간</h4>
+            <p class="text-sm text-slate-600">월-금 09:00 - 18:00 (한국시간)</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="py-8 border-t border-slate-100">
+    <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
+      <div class="text-sm text-slate-600">© 2025 Macaronics. All rights reserved.</div>
+      <div class="flex items-center gap-4">
+        <a href="#" class="text-sm hover:text-primary">Privacy</a>
+        <a href="#" class="text-sm hover:text-primary">Terms</a>
+      </div>
+    </div>
+  </footer>
+
+ <script>
+    const navToggle = document.getElementById('navToggle');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const iconOpen = document.getElementById('iconOpen');
+    const iconClose = document.getElementById('iconClose');
+
+    console.log('Navigation toggle, mobile menu, icons initialized:', { navToggle, mobileMenu, iconOpen, iconClose });
+
+    navToggle?.addEventListener('click', () => {
+      console.log('Nav toggle clicked');
+      const isHidden = mobileMenu.classList.contains('hidden');
+      console.log('Mobile menu hidden before toggle:', isHidden);
+      mobileMenu.classList.toggle('hidden', !isHidden);
+      iconOpen.classList.toggle('hidden');
+      iconClose.classList.toggle('hidden');
+      console.log('Mobile menu hidden after toggle:', mobileMenu.classList.contains('hidden'));
+    });
+
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', (e) => {
+        const href = a.getAttribute('href');
+        console.log('Anchor clicked:', href);
+        if (href && href.startsWith('#')) {
+          e.preventDefault();
+          const el = document.querySelector(href);
+          if (el) {
+            console.log('Scrolling to element:', el);
+            el.scrollIntoView({ behavior: 'smooth' });
+          }
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
