@@ -1,0 +1,16 @@
+
+
+
+### Get all products
+GET http://localhost:1337/api/products
+
+
+
+
+###  Strapi5 Get all products
+GET http://localhost:1337/api/products?populate=*
+
+
+### Get all products
+GET http://localhost:1337/api/products/v473t5jmza0jox5ywhkxp8qq
+
