@@ -14,7 +14,7 @@
     "icon": {
       "type": "enumeration",
       "enum": [
-        "LOCK_ICON",
+        "CLOCK_ICON",
         "CHECK_ICON",
         "CLOUD_ICON"
       ]
