@@ -29,7 +29,7 @@ export function HeroSection({ data }: Readonly<{ data: IHeroSectionProps }>) {
 
   const { heading, subHeading, image ,link } = data;
 
-  console.dir(data, { depth: null });
+//  console.dir(data, { depth: null });
   return (
     <header className={styles.header}>
 

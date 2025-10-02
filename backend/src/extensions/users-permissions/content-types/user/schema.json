@@ -71,6 +71,13 @@
       "relation": "manyToOne",
       "target": "api::cart-item.cart-item",
       "inversedBy": "users_permissions_users"
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images"
+      ]
     }
   }
 }
