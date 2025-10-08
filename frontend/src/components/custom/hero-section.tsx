@@ -1,4 +1,5 @@
 import { StrapiImage } from "@/components/custom/strapi-image";
+import { actions } from "@/data/actions";
 import { TImage, TLink } from "@/types";
 import Link from "next/link";
 
@@ -24,8 +25,10 @@ export interface IHeroSectionProps {
   link: TLink;
 }
 
-export function HeroSection({ data }: Readonly<{ data: IHeroSectionProps }>) {
+export async function HeroSection({ data }: Readonly<{ data: IHeroSectionProps }>) {
   if (!data) return null;
+  const user = await actions.auth.getUserMeAction();
+
 
   const { heading, subHeading, image ,link } = data;
 

@@ -1,8 +1,12 @@
 import Link from "next/link";
 import type { THeader } from "@/types";
 
+import { actions } from "@/data/actions";
 import { Logo } from "@/components/custom/logo";
 import { Button } from "@/components/ui/button";
+import LoggedInUser from "./logged-in-user";
+
+
 
 const styles = {
     header:
@@ -16,21 +20,31 @@ interface IHeaderProps {
 }
 
 
-export default function Header({ data }: IHeaderProps) {
+export default async function Header({ data }: IHeaderProps) {
 
     if (!data) return null;
+
+    const user = await actions.auth.getUserMeAction();
     const { logoText, ctaButton } = data;
+
 
     return (
         <div className={styles.header}>
             <Logo text={logoText.label} />
             <div className={styles.actions}>
-                <Link href={ctaButton.href}>
-                    <Button>{ctaButton.label}</Button>
-                </Link>
+                {user.success && user.data ? (
+                    <LoggedInUser userData={user.data} />
+                ) : (
+                    <Link href={ctaButton.href}>
+                        <Button>{ctaButton.label}</Button>
+                    </Link>
+                )}
             </div>
+
         </div>
-    );
+    )
+
+
 }
 
 
