@@ -1,0 +1,82 @@
+<!-- FILE: index.html -->
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>사과 게임 - HTML5 Canvas</title>
+  <!-- Tailwind CDN (최신) -->  
+  <!-- <script src="https://cdn.tailwindcss.com"></script> -->
+  <link rel="stylesheet" href="./src/style.css" />
+  <style>
+    /* 캔버스의 픽셀 블러 방지 (선택) */
+    canvas { image-rendering: optimizeSpeed; image-rendering: -moz-crisp-edges; image-rendering: -o-crisp-edges; image-rendering: -webkit-optimize-contrast; }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-green-50 to-yellow-50 min-h-screen flex items-center justify-center p-4">
+  <div class="w-full max-w-4xl mx-auto">
+    <header class="flex flex-col sm:flex-row items-center justify-between gap-4 mb-4">
+      <h1 class="text-2xl sm:text-3xl font-extrabold text-gray-800">🍎 사과 게임</h1>
+      <p class="text-sm text-gray-600">목표: 떨어지는 사과를 바구니로 받아 점수 획득 (받으면 +10점, 놓치면 -1 생명, 생명 3개)</p>
+    </header>
+
+    <main class="bg-white shadow-lg rounded-2xl p-4">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+        <!-- Game area -->
+        <div class="col-span-1 lg:col-span-2">
+          <div class="border rounded-xl p-2 bg-gray-50">
+            <div class="flex items-center justify-between mb-2">
+              <div class="flex items-center gap-2">
+                <button id="startBtn" class="px-3 py-1 rounded bg-green-500 text-white font-semibold">게임 시작</button>
+                <button id="pauseBtn" class="px-3 py-1 rounded bg-yellow-400 text-white font-semibold">일시정지</button>
+                <button id="resetBtn" class="px-3 py-1 rounded bg-red-500 text-white font-semibold">초기화</button>
+              </div>
+              <div class="text-sm text-gray-500">조작: ← → 화살표 키</div>
+            </div>
+
+            <div class="w-full h-[60vh] sm:h-[60vh] md:h-[60vh] lg:h-[60vh] relative">
+              <canvas id="gameCanvas" width="600" height="400" class="w-full h-full rounded-lg bg-white block"></canvas>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Info panel -->
+        <aside class="col-span-1">
+          <div class="p-4 bg-gradient-to-b from-red-50 to-white rounded-xl">
+            <div class="mb-3">
+              <div class="text-sm text-gray-600">점수</div>
+              <div id="score" class="text-3xl font-bold text-gray-800">0</div>
+            </div>
+            <div class="mb-3">
+              <div class="text-sm text-gray-600">생명</div>
+              <div id="lives" class="text-2xl font-semibold text-red-600">❤❤❤</div>
+            </div>
+            <div class="mb-3">
+              <div class="text-sm text-gray-600">난이도</div>
+              <div id="level" class="text-xl font-medium text-gray-700">1</div>
+            </div>
+            <hr class="my-3" />
+            <div class="text-sm text-gray-700">
+              <strong>팁</strong>
+              <ul class="list-disc pl-4 mt-2 text-xs text-gray-600">
+                <li>바구니를 화면 중앙에 두고 시작하세요.</li>
+                <li>사과가 빨라질 때 미리 위치로 이동하세요.</li>
+                <li>점수가 오르면 사과 속도가 빨라집니다.</li>
+              </ul>
+            </div>
+          </div>
+        </aside>
+      </div>
+
+      <footer class="mt-4 text-xs text-gray-500">모든 파일을 같은 폴더에 두고 index.html을 브라우저로 열어 실행하세요.</footer>
+    </main>
+  </div>
+
+  
+  <!-- game.js 불러오기 -->
+  <script src="./src/game.js"></script>
+</body>
+</html>
+
+
