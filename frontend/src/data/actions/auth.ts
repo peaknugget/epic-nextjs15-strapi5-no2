@@ -6,7 +6,7 @@ import { isAuthError } from "@/data/services/auth";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { TAuthUser, TStrapiResponse } from "@/types";
-import { FormState, SigninFormSchema, SignupFormSchema } from "@/components/validation/auth";
+import { FormState, SigninFormSchema, SignupFormSchema } from "@/data/validation/auth";
 
 const CookiesConfig = {
   maxAge: 60 * 60 * 24 * 7, // 1 week
