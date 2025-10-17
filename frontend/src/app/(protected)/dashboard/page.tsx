@@ -1,5 +1,8 @@
 import Link from "next/link";
 import { SVGProps } from "react";
+import { services } from "@/data/services";
+import { actions } from "@/data/actions";
+
 
 const styles = {
   layout: "h-screen grid grid-cols-[240px_1fr]",
@@ -17,11 +20,20 @@ const styles = {
   main: "flex flex-col overflow-scroll",
 };
 
-export default function DashboardLayout({
-  children,
-}: {
+interface DashboardLayoutProps {
   readonly children: React.ReactNode;
-}) {
+}
+
+export default async function DashboardLayout({children}: DashboardLayoutProps) {
+
+  const user =await actions.auth.getUserMeAction();
+
+  console.log('user', user);
+
+  
+
+
+
   return (
     <div className={styles.layout}>
       <nav className={styles.sidebar}>
