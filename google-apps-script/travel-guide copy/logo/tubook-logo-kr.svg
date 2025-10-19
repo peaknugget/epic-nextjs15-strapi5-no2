@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 280" preserveAspectRatio="xMidYMid meet" role="img" aria-labelledby="title desc">
+<title id="title">튜북</title>
+<desc id="desc">튜북로그</desc>
+
+<style>
+:root {
+  --brand1: #E50914; /* Netflix Red */
+  --brand2: #B20710; /* Darker accent red */
+  --mono: #141414;  /* Netflix Black */
+}
+.bg{fill:transparent}
+.page-left{fill:var(--brand1)}
+.page-right{fill:var(--brand2)}
+.spine{fill:#ffffff;opacity:0.95}
+.word{
+  fill:var(--mono);
+  font-family: "Inter","Poppins","Noto Sans KR","Apple SD Gothic Neo",sans-serif;
+  font-weight: 700;
+}
+</style>
+
+<g id="icon" transform="translate(64,40)">
+  <!-- Icon bounding box about 176x176 -->
+  <rect class="bg" width="176" height="176" rx="24"/>
+  <!-- left page -->
+  <path class="page-left" d="M12 26c0-10 8-18 18-18h60c9.5 0 18 8 18 18v124c0 8.8-7.2 16-16 16H30c-11 0-18-6.5-18-18V26z"/>
+  <!-- right page -->
+  <path class="page-right" d="M164 26c0-10-8-18-18-18H86c-9.5 0-18 8-18 18v124c0 8.8 7.2 16 16 16h96c11 0 18-6.5 18-18V26z"/>
+  <!-- spine -->
+  <path class="spine" d="M94 20c6 0 10 4.5 10 10v116c0 5.5-4 10-10 10s-10-4.5-10-10V30c0-5.5 4-10 10-10z"/>
+</g>
+
+<!-- Wordmark (한글 "튜북" Tubook) -->
+<g id="wordmark" transform="translate(280,170)">
+  <text class="word" x="0" y="0" font-size="96" text-rendering="geometricPrecision">튜북</text>
+</g>
+
+</svg>
