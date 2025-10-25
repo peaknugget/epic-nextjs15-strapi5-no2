@@ -78,6 +78,18 @@
       "allowedTypes": [
         "images"
       ]
+    },
+    "firstName": {
+      "type": "string"
+    },
+    "lastName": {
+      "type": "string"
+    },
+    "bio": {
+      "type": "text"
+    },
+    "credits": {
+      "type": "integer"
     }
   }
 }

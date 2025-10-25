@@ -23,10 +23,8 @@ interface IHeaderProps {
 export default async function Header({ data }: IHeaderProps) {
 
     if (!data) return null;
-
     const user = await actions.auth.getUserMeAction();
     const { logoText, ctaButton } = data;
-
 
     return (
         <div className={styles.header}>
@@ -40,7 +38,6 @@ export default async function Header({ data }: IHeaderProps) {
                     </Link>
                 )}
             </div>
-
         </div>
     )
 

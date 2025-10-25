@@ -28,8 +28,6 @@ export interface IHeroSectionProps {
 export async function HeroSection({ data }: Readonly<{ data: IHeroSectionProps }>) {
   if (!data) return null;
   const user = await actions.auth.getUserMeAction();
-
-
   const { heading, subHeading, image ,link } = data;
 
 //  console.dir(data, { depth: null });
@@ -43,7 +41,6 @@ export async function HeroSection({ data }: Readonly<{ data: IHeroSectionProps }
       height={1080}
       width={1920}
     />
-
 
       <div className={styles.overlay}>
         <h1 className={styles.heading}>{heading}</h1>

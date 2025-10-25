@@ -90,6 +90,7 @@ export type TAuthUser = {
   firstName?: string;
   lastName?: string;
   bio?: string;
+  image?: TImage;
   credits?: number;
   provider: string;
   confirmed: boolean;
