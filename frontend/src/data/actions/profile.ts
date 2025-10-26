@@ -161,10 +161,8 @@ export async function updateProfileImageAction(
   const uploadedImageId = fileUploadResponse.data[0].id;
 
   // Update user profile with new image
-  const updateImageResponse = await services.profile.updateProfileImageService(
-    userId
-  );
-
+  const updateImageResponse = await services.profile.updateProfileImageService(user.id);
+    
   if (!updateImageResponse.success) {
     return {
       success: false,

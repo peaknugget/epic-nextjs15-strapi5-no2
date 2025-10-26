@@ -5,5 +5,7 @@ export const actions={
     auth:{
         ...authActions
     },
-    profile: updateProfileAction
+    profile: {
+        ...updateProfileAction
+    }
 }

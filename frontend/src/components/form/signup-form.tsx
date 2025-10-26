@@ -15,7 +15,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { actions } from "@/data/actions";
 import { useActionState } from "react";
-import {type FormState } from "../validation/auth";
+import {type FormState } from "@/data/validation/auth";
 import { ZodErrors } from "../custom/zod-errors";
 import { StrapiErrors } from "../custom/strapi-errors";
 import { SubmitButton } from "../custom/submit-button";

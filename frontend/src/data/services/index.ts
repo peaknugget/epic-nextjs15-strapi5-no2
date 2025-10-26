@@ -1,5 +1,6 @@
 import * as authServices from "./auth";
 import * as profileServices from "./profile";
+import * as fileServices from "./file";
 export const services = {
   auth: {
     ...authServices,
@@ -7,5 +8,7 @@ export const services = {
   profile: {
     ...profileServices,
   },
-  file: {},
+  file: {
+    ...fileServices,
+  },
 };
