@@ -1,6 +1,7 @@
 import { getStrapiURL } from "@/lib/utils";
 import type { TStrapiResponse } from "@/types";
 import { actions } from "@/data/actions";
+import { requireAuthUser } from "@/lib/auth-helpers";
 
 const baseUrl = getStrapiURL();
 
@@ -42,7 +43,7 @@ type TFileUploadResponse = {
 export async function fileUploadService(
   file: File
 ): Promise<TStrapiResponse<TFileUploadResponse[]>> {
-  const authToken = await actions.auth.getAuthTokenAction();
+  const authToken = await requireAuthUser();
 
   if (!authToken) {
     return {
@@ -110,7 +111,8 @@ export async function fileUploadService(
 export async function fileDeleteService(
   fileId: number
 ): Promise<TStrapiResponse<boolean>> {
-  const authToken = await actions.auth.getAuthTokenAction();
+
+  const authToken = await requireAuthUser();
 
   if (!authToken) {
     return {

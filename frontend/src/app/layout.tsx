@@ -5,6 +5,7 @@ import { validateApiResponse } from "@/lib/error-handler";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { Toaster } from "sonner";
 
 
 
@@ -34,21 +35,23 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
 
-  const globalDataResponse =await loaders.getGlobalData();
+  const globalDataResponse = await loaders.getGlobalData();
   const globalData = validateApiResponse(globalDataResponse, "global page");
-  
+
   //console.dir(globalData, { depth: null });
 
   return (
     <html lang="ko">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <Header data={globalData.header} />        
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        <Toaster position="bottom-center" />
+        <Header data={globalData.header} />
         {children}
         <Footer data={globalData.footer} />
+
 
       </body>
     </html>
   );
+
+
 }

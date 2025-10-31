@@ -5,6 +5,7 @@ import { actions } from "@/data/actions";
 import { Logo } from "@/components/custom/logo";
 import { Button } from "@/components/ui/button";
 import LoggedInUser from "./logged-in-user";
+import { SummaryForm } from "../form/summary-form";
 
 
 
@@ -29,6 +30,9 @@ export default async function Header({ data }: IHeaderProps) {
     return (
         <div className={styles.header}>
             <Logo text={logoText.label} />
+
+            {user.success && <SummaryForm />}
+
             <div className={styles.actions}>
                 {user.success && user.data ? (
                     <LoggedInUser userData={user.data} />
