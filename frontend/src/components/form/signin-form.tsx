@@ -32,7 +32,7 @@ const styles = {
 };
 
 const INITIAL_STATE: FormState = {
-  success: false ,
+  success: false,
   message: undefined,
   strapiErrors: null,
   zodErrors: null,
@@ -40,7 +40,7 @@ const INITIAL_STATE: FormState = {
 
 
 export function SigninForm() {
-  const [formState, formAction] =useActionState(actions.auth.loginUserAction, INITIAL_STATE);
+  const [formState, formAction] = useActionState(actions.auth.loginUserAction, INITIAL_STATE);
 
 
   return (
@@ -50,7 +50,7 @@ export function SigninForm() {
           <CardHeader className={styles.header}>
             <CardTitle className={styles.title}>로그인</CardTitle>
             <CardDescription>
-                계정에 로그인하려면 세부 정보를 입력하세요.
+              계정에 로그인하려면 세부 정보를 입력하세요.
             </CardDescription>
           </CardHeader>
           <CardContent className={styles.content}>
@@ -79,7 +79,7 @@ export function SigninForm() {
             </div>
           </CardContent>
           <CardFooter className={styles.footer}>
-            <SubmitButton className="w-full"   text="로그인" loadingText="로그인 중..." />
+            <SubmitButton className="w-full " text="로그인" loadingText="로그인 중..." />
 
             <StrapiErrors error={formState?.strapiErrors} />
 

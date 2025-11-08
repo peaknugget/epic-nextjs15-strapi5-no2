@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 const styles = {
-  link: "flex items-center gap-2",
+  link: "flex items-center gap-2 w-full max-w-[240px]",
   icon: "h-6 w-6 text-pink-500",
   text: {
     base: "text-lg font-semibold",
@@ -39,9 +39,8 @@ export function Logo({ text, dark = false }: ILogoProps) {
     <Link className={styles.link} href="/">
       <MountainIcon className={styles.icon} />
       <span
-        className={`${styles.text.base} ${
-          dark ? styles.text.dark : styles.text.light
-        }`}
+        className={`${styles.text.base} ${dark ? styles.text.dark : styles.text.light
+          }`}
       >
         {text}
       </span>

@@ -1,5 +1,8 @@
+import { TBlocks } from "@/app/page";
+
 export interface BaseParams {
   [key: string]: string | string[] | undefined;
+  query?: string;
 }
 
 export interface RouteParams extends BaseParams {
@@ -37,7 +40,7 @@ export type THomePage = {
   createdAt: string;
   updatedAt: string;
   publishedAt: string;
-  blocks: any; // we will change this soon
+  blocks: TBlocks; // we will change this soon
 };
 
 export type THeader = {
@@ -90,7 +93,6 @@ export type TAuthUser = {
   firstName?: string;
   lastName?: string;
   bio?: string;
-  image?: TImage;
   credits?: number;
   provider: string;
   confirmed: boolean;
@@ -98,6 +100,7 @@ export type TAuthUser = {
   createdAt: string;
   updatedAt: string;
   publishedAt: string;
+  image?: TImage;
 };
 
 export type TStrapiResponse<T = null> = {

@@ -27,13 +27,13 @@ export async function middleware(request: NextRequest) {
   // 보호된 라우트에 대해서만 인증 검증 실행
   if (isProtectedRoute(currentPath)) {
     try {
-      console.log("✅보호된 라우트에 대해서만 인증 검증 실행 :  미들웨어 인증 검증 중...");
+      //console.log("✅보호된 라우트에 대해서만 인증 검증 실행 :  미들웨어 인증 검증 중...");
       // getUserMe 서비스로 사용자 인증 검증
       // 1. 토큰이 존재하고 유효한지 확인
       // 2. 데이터베이스에 사용자가 존재하는지 확인
       // 3. 사용자 계정이 활성 상태인지 확인 (차단/삭제 여부)
       const userResponse = await actions.auth.getUserMeAction();
-      console.log("✅보호된 라우트에 userResponse :", userResponse);
+      //console.log("✅보호된 라우트에 userResponse :", userResponse);
 
 
       // 사용자 인증 실패 시 로그인 페이지로 리다이렉트

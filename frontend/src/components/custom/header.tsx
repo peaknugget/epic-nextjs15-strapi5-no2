@@ -11,7 +11,7 @@ import { SummaryForm } from "../form/summary-form";
 
 const styles = {
     header:
-        "flex  items-center justify-between px-4 py-3 bg-white shadow-md dark:bg-gray-800",
+        "flex  items-center justify-between px-4 py-3 bg-white shadow-md dark:bg-gray-800 md:space-x-6",
     actions: "flex items-center gap-4",
     summaryContainer: "flex-1 flex justify-center max-w-2xl mx-auto",
 };
