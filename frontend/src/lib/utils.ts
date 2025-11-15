@@ -12,7 +12,7 @@ export function getStrapiURL() {
 }
 
 
-export function extractYouTubeID(urlOrID: string): string | null {
+export function extractYouTubeIDStrapi(urlOrID: string): string | null {
   // Regular expression for YouTube ID format
   const regExpID = /^[a-zA-Z0-9_-]{11}$/;
 
@@ -45,7 +45,7 @@ export function extractYouTubeID(urlOrID: string): string | null {
 
 
 
-export function extractUpdateYouTubeID(urlOrID: string): string | null {
+export function extractYouTubeID(urlOrID: string): string | null {
   // 순수 ID 체크
   const regExpID = /^[a-zA-Z0-9_-]{11}$/;
   if (regExpID.test(urlOrID)) return urlOrID;

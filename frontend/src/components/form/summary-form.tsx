@@ -2,36 +2,32 @@
 import { useState } from "react";
 import { toast } from "sonner";
 import { cn, extractYouTubeID } from "@/lib/utils";
+import { api } from "@/data/data-api";
+
 import { Input } from "@/components/ui/input";
 import { SubmitButton } from "@/components/custom/submit-button";
-
 
 type ITranscriptResponse = {
     fullTranscript: string;
     title?: string;
     videoId?: string;
     thumbnailUrl?: string;
-}
-
+};
 
 interface IErrors {
     message: string | null;
     name: string;
 }
 
-
 const INITIAL_STATE = {
     message: null,
     name: "",
-}
-
+};
 
 export function SummaryForm() {
-
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<IErrors>(INITIAL_STATE);
-    const [value, setValue] = useState("");
-
+    const [value, setValue] = useState<string>("");
 
     async function handleFormSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
@@ -57,16 +53,35 @@ export function SummaryForm() {
 
         try {
             // Step 1: Get transcript
-            currentToastId = toast.loading("✅번역 가져오기...");
+            console.log("✅Fetching transcript for video ID:", processedVideoId);
+
+            currentToastId = toast.loading("Getting transcript...");
+
+            const transcriptResponse = await api.post<ITranscriptResponse, { videoId: string }>("/api/transcript", { videoId: processedVideoId });
+
+            if (!transcriptResponse.success) {
+                toast.dismiss(currentToastId);
+                toast.error(transcriptResponse.error?.message);
+                return;
+            }
+
+            const fullTranscript = !transcriptResponse.data?.fullTranscript;
+
+            if (!fullTranscript) {
+                toast.dismiss(currentToastId);
+                toast.error("No transcript data found");
+                return;
+            }
+
+            console.log(fullTranscript);
 
             // Step 2: Generate summary
             toast.dismiss(currentToastId);
-            currentToastId = toast.loading("✅요약 생성 중...");
+            currentToastId = toast.loading("Generating summary...");
 
             // Step 3: Save summary to database
             toast.dismiss(currentToastId);
-            currentToastId = toast.loading("✅요약 저장 중...");
-
+            currentToastId = toast.loading("Saving summary...");
 
             toast.success("Summary Created and Saved!");
             setValue("");
@@ -92,9 +107,8 @@ export function SummaryForm() {
         ? "outline-1 outline outline-red-500 placeholder:text-red-700"
         : "";
 
-
     return (
-        <div className="w-full">
+        <div className="w-full flex-1 mx-4">
             <form onSubmit={handleFormSubmit} className="flex gap-2 items-center">
                 <Input
                     name="videoId"
@@ -120,20 +134,4 @@ export function SummaryForm() {
             </form>
         </div>
     );
-
-
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

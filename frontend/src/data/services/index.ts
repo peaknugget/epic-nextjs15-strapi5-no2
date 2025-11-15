@@ -13,7 +13,7 @@ export const services = {
   file: {
     ...fileServices,
   },
-  summary: {
+  summarize: {
     generateTranscript,
   },
 
