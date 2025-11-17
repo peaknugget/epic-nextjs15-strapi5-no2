@@ -1,3 +1,5 @@
 import { generateTranscript } from "./generate-transcript";
+import { generateSummary } from "./generate-summary";
 
-export { generateTranscript };
+
+export { generateTranscript, generateSummary };
