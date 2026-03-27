@@ -1,0 +1,11 @@
+<!-- logo.svg -->
+<svg xmlns="http://www.w3.org/2000/svg" width="160" height="40" viewBox="0 0 160 40" role="img" aria-label="코담 로고">
+  <defs>
+    <linearGradient id="lg1" x1="0" x2="1">
+      <stop offset="0" stop-color="#FFD166"/>
+      <stop offset="1" stop-color="#EF476F"/>
+    </linearGradient>
+  </defs>
+  <rect width="40" height="40" rx="10" fill="url(#lg1)" />
+  <text x="60" y="26" font-family="Segoe UI, Roboto, Arial" font-size="20" fill="#ffffff" font-weight="700">코담</text>
+</svg>

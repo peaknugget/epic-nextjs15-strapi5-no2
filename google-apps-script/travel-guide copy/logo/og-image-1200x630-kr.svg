@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+     viewBox="0 0 1200 630"
+     width="1200"
+     height="630"
+     preserveAspectRatio="xMidYMid meet"
+     role="img"
+     aria-labelledby="title desc">
+
+  <title id="title">tubook OG 이미지</title>
+  <desc id="desc">1200x630 Open Graph 최적화 tubook 로고 (투명 배경)</desc>
+
+  <style>
+    :root {
+      --brand1: #E50914; /* Netflix Red */
+      --brand2: #B20710; /* Darker accent red */
+      --mono: #00000;  /* White text */
+    }
+    .page-left { fill: var(--brand1); }
+    .page-right { fill: var(--brand2); }
+    .spine { fill: #ffffff; opacity: 0.95; }
+    .word {
+      fill: var(--mono);
+      font-family: "Inter","Poppins","Noto Sans KR","Apple SD Gothic Neo",sans-serif;
+      font-weight: 700;
+      font-size: 96px;
+      text-rendering: geometricPrecision;
+    }
+  </style>
+
+  <!-- 아이콘 (좌측 배치, 세로 중앙) -->
+  <g id="icon" transform="translate(120,215)">
+    <path class="page-left" d="M12 26c0-10 8-18 18-18h60c9.5 0 18 8 18 18v124c0 8.8-7.2 16-16 16H30c-11 0-18-6.5-18-18V26z"/>
+    <path class="page-right" d="M164 26c0-10-8-18-18-18H86c-9.5 0-18 8-18 18v124c0 8.8 7.2 16 16 16h96c11 0 18-6.5 18-18V26z"/>
+    <path class="spine" d="M94 20c6 0 10 4.5 10 10v116c0 5.5-4 10-10 10s-10-4.5-10-10V30c0-5.5 4-10 10-10z"/>
+  </g>
+
+  <!-- 워드마크 (아이콘 오른쪽, 정확히 수직 중앙 정렬) -->
+  <g id="wordmark" transform="translate(360,315)">
+    <text class="word"
+          x="0"
+          y="0"
+          dominant-baseline="middle"
+          text-anchor="start">튜북</text>
+  </g>
+
+</svg>

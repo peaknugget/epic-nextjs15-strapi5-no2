@@ -1,0 +1,358 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>스마트 여행 가이드</title>
+
+  <style>
+    /* =========== 기본 레이아웃 =========== */
+    :root{
+      --bg: linear-gradient(180deg,#f8fdff 0%, #e8f7ff 100%);
+      --card: rgba(255,255,255,0.9);
+      --accent: #00bcd4;
+      --accent-dark: #019fb0;
+      --muted: #6b7280;
+      --happy: #ffb86b;
+      font-family: "Noto Sans KR", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+    html,body{
+      height:100%;
+      margin:0;
+      background: var(--bg);
+      color:#102a43;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
+    .container{
+      max-width:1100px;
+      margin: 28px auto;
+      padding: 20px;
+    }
+
+    /* Header */
+    header{
+      text-align:center;
+      margin-bottom:18px;
+    }
+    .title{
+      font-size: clamp(20px, 3.6vw, 32px);
+      font-weight:800;
+      letter-spacing:-0.02em;
+      margin:0;
+      color:#073642;
+    }
+    .subtitle{
+      margin-top:6px;
+      color:var(--muted);
+    }
+
+    /* Main grid */
+    .grid{
+      display:grid;
+      grid-template-columns: 380px 1fr;
+      gap:20px;
+    }
+
+    /* Left panel (form) */
+    .panel{
+      background:var(--card);
+      border-radius:16px;
+      padding:18px;
+      box-shadow: 0 10px 30px rgba(2,6,23,0.06);
+    }
+    .label{ font-weight:700; margin-bottom:6px; color:#044e57; }
+    .input-text{
+      width:100%;
+      padding:10px 12px;
+      border-radius:10px;
+      border:1px solid rgba(4,78,87,0.06);
+      font-size:14px;
+    }
+    .row{ margin-bottom:12px; }
+
+    .radio-row, .checkbox-row { display:flex; gap:8px; flex-wrap:wrap; }
+    .radio-row label, .checkbox-row label{
+      padding:8px 12px;
+      background: rgba(1,159,176,0.06);
+      border-radius:10px;
+      cursor:pointer;
+      font-size:13px;
+    }
+
+    select.input-select{
+      width:100%;
+      padding:10px 12px;
+      border-radius:10px;
+      border:1px solid rgba(4,78,87,0.06);
+      font-size:14px;
+    }
+
+    /* slider */
+    .slider-wrap{ display:flex; align-items:center; gap:12px; }
+    input[type="range"]{ width:100%; }
+
+    /* submit button */
+    .btn{
+      display:block;
+      margin:18px auto 6px;
+      padding:12px 18px;
+      background: linear-gradient(90deg,var(--accent),var(--accent-dark));
+      color:white;
+      border:none;
+      border-radius:12px;
+      font-size:16px;
+      cursor:pointer;
+      box-shadow: 0 8px 20px rgba(1,159,176,0.16);
+    }
+
+    /* right panel (results) */
+    .results{
+      min-height:240px;
+      background:transparent;
+    }
+    .spinner{
+      display:none;
+      margin:18px auto;
+      text-align:center;
+    }
+    .cards{
+      display:grid;
+      grid-template-columns: repeat(auto-fill,minmax(260px,1fr));
+      gap:12px;
+    }
+    .card{
+      background: white;
+      border-radius:12px;
+      padding:12px;
+      box-shadow: 0 6px 18px rgba(4,78,87,0.04);
+      overflow:auto;
+      max-height:420px;
+    }
+    .card h4{ margin:0 0 8px 0; font-size:16px; color:#032b2f; }
+    .muted{ color:var(--muted); font-size:13px; }
+
+    footer{
+      margin-top:18px;
+      text-align:center;
+      font-size:13px;
+      color:var(--muted);
+    }
+
+    /* responsive */
+    @media (max-width:880px){
+      .grid{ grid-template-columns: 1fr; }
+      .panel{ order:2; }
+      .results{ order:1; margin-bottom:10px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1 class="title">스마트 여행 가이드</h1>
+      <div class="subtitle">AI가 추천하는 맞춤형 여행 경로 — 설레는 여행 계획을 지금 바로 받아보세요 ✨</div>
+    </header>
+
+    <div class="grid">
+      <!-- Form panel -->
+      <div class="panel" aria-labelledby="form">
+        <div class="row">
+          <div class="label">여행지 입력</div>
+          <input id="destination" class="input-text" type="text" placeholder="예: 일본 도쿄, 프랑스 파리">
+        </div>
+
+        <div class="row">
+          <div class="label">인원수</div>
+          <div class="radio-row" id="peopleGroup">
+            <label><input type="radio" name="people" value="1명" checked> 1명</label>
+            <label><input type="radio" name="people" value="2명"> 2명</label>
+            <label><input type="radio" name="people" value="3-4명"> 3-4명</label>
+            <label><input type="radio" name="people" value="5명 이상"> 5명 이상</label>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="label">성별 구성</div>
+          <div class="radio-row">
+            <label><input type="radio" name="gender" value="남성만" checked> 남성만</label>
+            <label><input type="radio" name="gender" value="여성만"> 여성만</label>
+            <label><input type="radio" name="gender" value="혼성"> 혼성</label>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="label">나이대</div>
+          <select id="ageRange" class="input-select">
+            <option>20대</option>
+            <option>30대</option>
+            <option>40대</option>
+            <option>50대 이상</option>
+            <option>혼합</option>
+          </select>
+        </div>
+
+        <div class="row">
+          <div class="label">여행 스타일 (복수선택)</div>
+          <div class="checkbox-row">
+            <label><input type="checkbox" value="솔로여행"> 솔로여행</label>
+            <label><input type="checkbox" value="휴양여행"> 휴양여행</label>
+            <label><input type="checkbox" value="가족여행"> 가족여행</label>
+            <label><input type="checkbox" value="커플여행"> 커플여행</label>
+            <label><input type="checkbox" value="비즈니스"> 비즈니스</label>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="label">여행 일수: <span id="daysLabel">3일</span></div>
+          <div class="slider-wrap">
+            <input id="days" type="range" min="1" max="7" value="3">
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="label">예산 규모</div>
+          <div class="radio-row">
+            <label><input type="radio" name="budget" value="100만원 이하" checked> 100만원 이하</label>
+            <label><input type="radio" name="budget" value="100-200만원"> 100-200만원</label>
+            <label><input type="radio" name="budget" value="200만원 이상"> 200만원 이상</label>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="label">추가 요청 / 선호사항</div>
+          <textarea id="requestText" class="input-text" rows="4" placeholder="특별히 원하는 활동이나 제외하고 싶은 것들(예: 쇼핑 위주, 박물관 중심 등)"></textarea>
+        </div>
+
+        <button id="submitBtn" class="btn">🎯 여행 경로 추천받기</button>
+      </div>
+
+      <!-- Results area -->
+      <div class="results">
+        <div class="panel">
+          <div id="spinner" class="spinner">
+            <div style="font-weight:700; color:var(--accent-dark)">AI가 여행을 정리중입니다... 조금만 기다려주세요 ✨</div>
+            <div style="margin-top:8px">
+              <svg width="60" height="60" viewBox="0 0 50 50"><circle cx="25" cy="25" r="20" stroke="rgba(1,159,176,0.18)" stroke-width="6" fill="none"></circle><path d="M45 25a20 20 0 0 1-20 20" stroke="var(--accent-dark)" stroke-width="6" stroke-linecap="round"></path></svg>
+            </div>
+          </div>
+
+          <div id="cards" class="cards" aria-live="polite"></div>
+
+          <div id="recentHeading" style="margin-top:12px; font-weight:700; color:#044e57">최근 요청 결과</div>
+          <div id="recentCards" class="cards" style="margin-top:8px"></div>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <div>앱 사용 방법: 여행지와 조건을 입력한 뒤 버튼을 눌러주세요. 생성된 일정은 구글 시트에 저장됩니다.</div>
+      <div style="margin-top:6px; font-weight:700">Powered by Macaronics.net</div>
+    </footer>
+  </div>
+
+  <script>
+    // UI 초기화
+    const daysInput = document.getElementById('days');
+    const daysLabel = document.getElementById('daysLabel');
+    daysLabel.textContent = daysInput.value + '일';
+    daysInput.addEventListener('input', ()=> daysLabel.textContent = daysInput.value + '일');
+
+    const submitBtn = document.getElementById('submitBtn');
+    const spinner = document.getElementById('spinner');
+    const cards = document.getElementById('cards');
+    const recentCards = document.getElementById('recentCards');
+
+    function getFormData() {
+      const destination = document.getElementById('destination').value.trim();
+      const people = document.querySelector('input[name="people"]:checked').value;
+      const gender = document.querySelector('input[name="gender"]:checked').value;
+      const ageRange = document.getElementById('ageRange').value;
+      const styles = Array.from(document.querySelectorAll('.checkbox-row input:checked')).map(i=>i.value);
+      const days = document.getElementById('days').value;
+      const budget = document.querySelector('input[name="budget"]:checked').value;
+      const requestText = document.getElementById('requestText').value.trim();
+
+      return { destination, people, gender, ageRange, styles, days, budget, requestText };
+    }
+
+    function showSpinner(show){
+      spinner.style.display = show ? 'block' : 'none';
+    }
+
+    function renderResultCard(title, htmlContent) {
+      const card = document.createElement('div');
+      card.className = 'card';
+      const h = document.createElement('h4');
+      h.textContent = title;
+      card.appendChild(h);
+
+      const pre = document.createElement('div');
+      pre.className = 'muted';
+      pre.style.whiteSpace = 'pre-wrap';
+      pre.style.fontSize = '14px';
+      pre.textContent = htmlContent;
+      card.appendChild(pre);
+
+      return card;
+    }
+
+    // 제출 처리
+    submitBtn.addEventListener('click', function(){
+      const data = getFormData();
+      if (!data.destination) {
+        alert('여행지를 입력해주세요.');
+        return;
+      }
+      // UI
+      cards.innerHTML = '';
+      showSpinner(true);
+
+      // google.script.run 호출
+      google.script.run.withSuccessHandler(function(res){
+        showSpinner(false);
+        if (!res) {
+          alert('서버에서 응답이 없습니다. 나중에 다시 시도해주세요.');
+          return;
+        }
+        if (res.success) {
+          // 결과 표시
+          const text = res.result || '(AI가 내용을 생성하지 못했습니다)';
+          const title = data.destination + ' • ' + data.days + '일';
+          cards.appendChild(renderResultCard(title, text));
+
+          // 최신 목록 갱신
+          loadRecent();
+        } else {
+          alert('오류가 발생했습니다:\n' + (res.error || 'Unknown error'));
+        }
+      }).withFailureHandler(function(err){
+        showSpinner(false);
+        alert('서버 호출 실패: ' + JSON.stringify(err));
+      }).generateItinerary(data);
+    });
+
+    // 최근 결과 불러오기 (페이지 로드 시 표시)
+    function loadRecent(){
+      google.script.run.withSuccessHandler(function(rows){
+        recentCards.innerHTML = '';
+        if (!rows || !rows.length) {
+          recentCards.innerHTML = '<div class="muted" style="padding:6px">최근 요청이 없습니다.</div>';
+          return;
+        }
+        rows.forEach(r=>{
+          const title = `${r.destination || '(무제)'} • ${r.timestamp}`;
+          const card = renderResultCard(title, r.aiResponse || '(응답 없음)');
+          recentCards.appendChild(card);
+        });
+      }).getRecentResults(6);
+    }
+
+    // 초기 로드
+    loadRecent();
+  </script>
+
+  <!-- google script service (Apps Script에서 자동 처리) -->
+</body>
+</html>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 176 176" width="48" height="48" role="img" aria-label="튜북 로고 파비콘">
+  <style>
+    :root {
+      --brand1: #E50914; /* Netflix Red */
+      --brand2: #B20710; /* Darker accent red */
+    }
+    .bg{fill:transparent}
+    .page-left{fill:var(--brand1)}
+    .page-right{fill:var(--brand2)}
+    .spine{fill:#ffffff;opacity:0.95}
+  </style>
+
+  <!-- 아이콘 전체 (원본 비율 유지) -->
+  <rect class="bg" width="176" height="176" rx="24"/>
+  <path class="page-left" d="M12 26c0-10 8-18 18-18h60c9.5 0 18 8 18 18v124c0 8.8-7.2 16-16 16H30c-11 0-18-6.5-18-18V26z"/>
+  <path class="page-right" d="M164 26c0-10-8-18-18-18H86c-9.5 0-18 8-18 18v124c0 8.8 7.2 16 16 16h96c11 0 18-6.5 18-18V26z"/>
+  <path class="spine" d="M94 20c6 0 10 4.5 10 10v116c0 5.5-4 10-10 10s-10-4.5-10-10V30c0-5.5 4-10 10-10z"/>
+</svg>

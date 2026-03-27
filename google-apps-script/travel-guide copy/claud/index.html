@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>스마트 여행 가이드</title>
+ <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 24px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            animation: slideUp 0.5s ease-out;
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+        }
+        
+        .form-container {
+            padding: 40px 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 30px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: #333;
+            font-size: 1rem;
+        }
+        
+        .form-group label span {
+            margin-right: 5px;
+        }
+        
+        input[type="text"] {
+            width: 100%;
+            padding: 14px 18px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: white;
+        }
+        
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+        }
+        
+        .radio-group, .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        
+        .radio-item, .checkbox-item {
+            position: relative;
+            flex: 1;
+            min-width: 100px;
+        }
+        
+        .radio-item input[type="radio"],
+        .checkbox-item input[type="checkbox"] {
+            position: absolute;
+            opacity: 0;
+        }
+        
+        .radio-item label,
+        .checkbox-item label {
+            display: block;
+            padding: 12px 16px;
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+        
+        .radio-item input[type="radio"]:checked + label,
+        .checkbox-item input[type="checkbox"]:checked + label {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-color: #667eea;
+            transform: scale(1.05);
+        }
+        
+        .radio-item label:hover,
+        .checkbox-item label:hover {
+            border-color: #667eea;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+        }
+        
+        select {
+            width: 100%;
+            padding: 14px 18px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 1rem;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+        }
+        
+        .slider-container {
+            margin-top: 15px;
+        }
+        
+        .slider {
+            width: 100%;
+            height: 8px;
+            border-radius: 5px;
+            background: #e0e0e0;
+            outline: none;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+        
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .slider::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+            box-shadow: 0 0 10px rgba(102, 126, 234, 0.4);
+        }
+        
+        .slider::-moz-range-thumb {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s ease;
+        }
+        
+        .slider-value {
+            text-align: center;
+            margin-top: 10px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #667eea;
+        }
+        
+        .submit-button {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 30px;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+        
+        .submit-button:hover:not(:disabled) {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+        
+        .submit-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 40px;
+        }
+        
+        .loading.active {
+            display: block;
+        }
+        
+        .spinner {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 20px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .result-container {
+            display: none;
+            padding: 30px;
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        .result-container.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .day-card {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            animation: slideIn 0.5s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .day-card h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+        }
+        
+        .day-content {
+            color: #333;
+            line-height: 1.8;
+            white-space: pre-wrap;
+        }
+        
+        .footer {
+            background: #f8f9fa;
+            padding: 20px;
+            text-align: center;
+            color: #666;
+            border-top: 1px solid #e0e0e0;
+        }
+        
+        .error-message {
+            background: #ff5252;
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            display: none;
+        }
+        
+        .error-message.active {
+            display: block;
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .form-container {
+                padding: 30px 20px;
+            }
+            
+            .radio-group, .checkbox-group {
+                flex-direction: column;
+            }
+            
+            .radio-item, .checkbox-item {
+                width: 100%;
+            }
+        }
+    </style>
+
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>✈️ 스마트 여행 가이드</h1>
+      <p>AI가 추천하는 맞춤형 여행 경로</p>
+    </div>
+
+    <div class="form-container">
+      <form id="travelForm">
+        <!-- (폼 요소: 여행지, 인원수, 성별, 나이대, 스타일, 슬라이더, 예산) -->
+        <!-- (업로드하신 HTML 폼 내용을 그대로 사용하세요) -->
+        <!-- 예: destination input, radio groups 등 -->
+        <!-- 아래는 업로드하신 폼을 그대로 복사하세요 -->
+        <!-- ---------- (폼 내용: 생략하지 말고 그대로 붙여넣기) ---------- -->
+        <!-- (실제 프로젝트에선 원본 파일의 폼 내용을 그대로 여기에 두시면 됩니다.) -->
+
+        <div class="form-group">
+            <label><span>📍</span>여행지 입력</label>
+            <input type="text" id="destination" placeholder="예: 일본 도쿄, 프랑스 파리" required>
+        </div>
+
+        <div class="form-group">
+            <label><span>👥</span>인원수 선택</label>
+            <div class="radio-group">
+                <div class="radio-item">
+                    <input type="radio" id="people1" name="people" value="1명" required>
+                    <label for="people1">1명</label>
+                </div>
+                <div class="radio-item">
+                    <input type="radio" id="people2" name="people" value="2명">
+                    <label for="people2">2명</label>
+                </div>
+                <div class="radio-item">
+                    <input type="radio" id="people3" name="people" value="3-4명">
+                    <label for="people3">3-4명</label>
+                </div>
+                <div class="radio-item">
+                    <input type="radio" id="people4" name="people" value="5명 이상">
+                    <label for="people4">5명 이상</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label><span>⚧</span>성별 구성</label>
+            <div class="radio-group">
+                <div class="radio-item">
+                    <input type="radio" id="genderM" name="gender" value="남성만" required>
+                    <label for="genderM">남성만</label>
+                </div>
+                <div class="radio-item">
+                    <input type="radio" id="genderF" name="gender" value="여성만">
+                    <label for="genderF">여성만</label>
+                </div>
+                <div class="radio-item">
+                    <input type="radio" id="genderMix" name="gender" value="혼성">
+                    <label for="genderMix">혼성</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label><span>🎂</span>나이대 선택</label>
+            <select id="age" required>
+                <option value="">나이대를 선택하세요</option>
+                <option value="20대">20대</option>
+                <option value="30대">30대</option>
+                <option value="40대">40대</option>
+                <option value="50대 이상">50대</option>
+                <option value="50대 이상">60대</option>
+                <option value="50대 이상">70대 이상</option>
+                <option value="혼합">혼합</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label><span>🎯</span>여행 스타일 (복수 선택 가능)</label>
+            <div class="checkbox-group">
+                <div class="checkbox-item">
+                    <input type="checkbox" id="style1" name="travelStyle" value="솔로여행">
+                    <label for="style1">솔로여행</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="style2" name="travelStyle" value="휴양여행">
+                    <label for="style2">휴양여행</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="style3" name="travelStyle" value="가족여행">
+                    <label for="style3">가족여행</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="style4" name="travelStyle" value="커플여행">
+                    <label for="style4">커플여행</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="style5" name="travelStyle" value="비즈니스">
+                    <label for="style5">비즈니스</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label><span>📅</span>여행 일수</label>
+            <div class="slider-container">
+                <input type="range" id="days" class="slider" min="1" max="7" value="3">
+                <div class="slider-value"><span id="daysValue">3</span>일</div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label><span>💰</span>예산 규모 (1인 기준)</label>
+            <div class="radio-group">
+                <div class="radio-item">
+                    <input type="radio" id="budget1" name="budget" value="100만원 이하" required>
+                    <label for="budget1">100만원 이하</label>
+                </div>
+                <div class="radio-item">
+                    <input type="radio" id="budget2" name="budget" value="100-200만원">
+                    <label for="budget2">100-200만원</label>
+                </div>
+                <div class="radio-item">
+                    <input type="radio" id="budget3" name="budget" value="200만원 이상">
+                    <label for="budget3">200만원 이상</label>
+                </div>
+            </div>
+        </div>
+
+        <button type="submit" class="submit-button">
+            🎯 여행 경로 추천받기
+        </button>
+      </form>
+
+      <div class="error-message" id="errorMessage"></div>
+
+      <div class="loading" id="loading">
+        <div class="spinner"></div>
+        <p>AI가 최적의 여행 경로를 생성중입니다...</p>
+        <p style="margin-top: 10px; font-size: 0.9rem; color: #666;">잠시만 기다려주세요 ☕</p>
+      </div>
+
+      <div class="result-container" id="resultContainer"></div>
+    </div>
+
+    <div class="footer">
+      <p>Powered by Macaronics.net</p>
+      <p style="margin-top: 5px; font-size: 0.9rem;">© 2025 Smart Travel Guide. All rights reserved.</p>
+    </div>
+  </div>
+
+  <script>
+    // 슬라이더 값 표시
+    const slider = document.getElementById('days');
+    const daysValue = document.getElementById('daysValue');
+
+    slider.addEventListener('input', function() {
+        daysValue.textContent = this.value;
+    });
+
+    // 폼 제출 처리
+    document.getElementById('travelForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+
+        // 여행 스타일 체크박스 값 수집
+        const travelStyles = [];
+        document.querySelectorAll('input[name="travelStyle"]:checked').forEach(checkbox => {
+            travelStyles.push(checkbox.value);
+        });
+
+        if (travelStyles.length === 0) {
+            showError('최소 하나의 여행 스타일을 선택해주세요.');
+            return;
+        }
+
+        // 폼 데이터 수집
+        const formData = {
+            destination: document.getElementById('destination').value,
+            people: (document.querySelector('input[name="people"]:checked') || {}).value,
+            gender: (document.querySelector('input[name="gender"]:checked') || {}).value,
+            age: document.getElementById('age').value,
+            travelStyle: travelStyles,
+            days: document.getElementById('days').value,
+            budget: (document.querySelector('input[name="budget"]:checked') || {}).value
+        };
+
+        // 필수 값 검증
+        if (!formData.destination) { showError('여행지를 입력해주세요.'); return; }
+        if (!formData.people) { showError('인원수를 선택해주세요.'); return; }
+        if (!formData.gender) { showError('성별 구성을 선택해주세요.'); return; }
+        if (!formData.age) { showError('나이대를 선택해주세요.'); return; }
+        if (!formData.budget) { showError('예산을 선택해주세요.'); return; }
+
+        // UI 상태 변경
+        showLoading();
+
+        try {
+            // Google Apps Script 함수 호출
+            const result = await new Promise((resolve, reject) => {
+                google.script.run
+                    .withSuccessHandler(resolve)
+                    .withFailureHandler(reject)
+                    .generateTravelRoute(formData);
+            });
+
+            if (result && result.success) {
+                displayResult(result.data);
+            } else {
+                showError((result && result.error) ? result.error : '여행 경로 생성에 실패했습니다.');
+            }
+        } catch (error) {
+            showError('오류가 발생했습니다: ' + error.toString());
+        } finally {
+            hideLoading();
+        }
+    });
+
+    function showLoading() {
+        document.getElementById('loading').classList.add('active');
+        document.getElementById('resultContainer').classList.remove('active');
+        document.getElementById('errorMessage').classList.remove('active');
+        document.querySelector('.submit-button').disabled = true;
+    }
+
+    function hideLoading() {
+        document.getElementById('loading').classList.remove('active');
+        document.querySelector('.submit-button').disabled = false;
+    }
+
+    function showError(message) {
+        const errorEl = document.getElementById('errorMessage');
+        errorEl.textContent = '⚠️ ' + message;
+        errorEl.classList.add('active');
+        setTimeout(() => {
+            errorEl.classList.remove('active');
+        }, 6000);
+    }
+
+    /**
+     * 결과 표시 함수
+     * - AI에서 "Day 1:", "Day 2:" 같은 마커로 올 것이라 가정하고 분리하여 카드로 표시
+     * - 마커가 없으면 전체 텍스트를 하나의 카드로 표시
+     */
+    function displayResult(data) {
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.innerHTML = '';
+
+        if (!data || typeof data !== 'string') {
+            resultContainer.innerHTML = '<div class="error-message active">AI 응답이 없습니다.</div>';
+            resultContainer.classList.add('active');
+            return;
+        }
+
+        // 우선 Day 마커 기준으로 분리
+        // Lookahead split: 각 "Day X:" 부터 분리
+        const parts = data.split(/(?=Day\s*\d+[:.])/i).map(p => p.trim()).filter(p => p);
+
+        let html = '<h2 style="margin-bottom: 20px; color: #667eea;">🎉 추천 여행 일정</h2>';
+
+        if (parts.length > 0 && parts.length <= 10) {
+            parts.forEach(part => {
+                // 제목 추출 (예: "Day 1:" 또는 "Day 1: 도쿄 일정")
+                const titleMatch = part.match(/^(Day\s*\d+[:.]?)([\s\S]*?)\n/im);
+                let title = '';
+                if (titleMatch) {
+                    title = titleMatch[1].trim();
+                } else {
+                    // 부분의 첫 줄을 제목으로 사용
+                    const firstLine = part.split('\n')[0];
+                    title = firstLine.length > 0 ? firstLine : '일정';
+                }
+
+                // 내용은 제목 다음 부분 전체
+                const content = part.replace(title, '').trim();
+
+                html += `
+                    <div class="day-card">
+                        <h3>${escapeHtml(title)}</h3>
+                        <div class="day-content">${nl2br(escapeHtml(content))}</div>
+                    </div>
+                `;
+            });
+        } else {
+            // Day 마커가 없는 경우: 전체를 하나의 카드로 표시
+            html += `
+                <div class="day-card">
+                    <h3>전체 일정</h3>
+                    <div class="day-content">${nl2br(escapeHtml(data))}</div>
+                </div>
+            `;
+        }
+
+        resultContainer.innerHTML = html;
+        resultContainer.classList.add('active');
+        // 스크롤 이동 (모바일 친화적)
+        resultContainer.scrollIntoView({behavior: 'smooth'});
+    }
+
+    // 간단한 XSS 방지용 이스케이프
+    function escapeHtml(unsafe) {
+        return unsafe
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#039;");
+    }
+
+    function nl2br(str) {
+      return str.replace(/\n/g, '<br>');
+    }
+  </script>
+</body>
+</html>
